@@ -57,3 +57,26 @@ const preOrderTraversal = (root) => {
   }
   return res;
 }
+
+// 层序遍历
+const levelOrderTraversal = (root) => {
+  if (!root) return [];
+  const res = [];
+  const queue = [root];
+  while (queue.length) {
+    const layer = [];
+    const len = queue.length;
+    for (i = 0; i < len; i++) {
+      const node = queue.shift();
+      layer.push(node.val);
+      if (node.left) {
+        queue.push(node.left);
+      }
+      if (node.right) {
+        queue.push(node.right);
+      }
+    }
+    res.push(layer);
+  }
+  return res;
+}
