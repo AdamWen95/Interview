@@ -50,3 +50,28 @@ const bubbleSort = (arr: number[]) => {
   }
   return arr;
 }
+
+// 归并排序
+const mergeSort = (arr: number[]) => {
+  // 合并2个有序数组
+  const merge = (left: number[], right: number[]) => {
+    const ret: number[] = [];
+    while (left.length && right.length) {
+      if (left[0] <= right[0]) {
+        ret.push(left.shift()!);
+      } else {
+        ret.push(right.shift()!);
+      }
+    }
+    return ret.concat(left, right);
+  }
+
+  if (!arr) return [];
+  if (arr.length === 1) {
+    return arr;
+  }
+  const mid = Math.floor(arr.length / 2);
+  const left = arr.slice(0, mid);
+  const right = arr.slice(mid);
+  return merge(mergeSort(left), mergeSort(right));
+}
