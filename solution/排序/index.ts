@@ -75,3 +75,30 @@ const mergeSort = (arr: number[]) => {
   const right = arr.slice(mid);
   return merge(mergeSort(left), mergeSort(right));
 }
+
+/**
+ * 插入排序
+ * 1. 直接插入排序
+ * 2. 希尔排序
+ */
+
+// 直接插入排序
+// a. 先将待排序序列的第1个元素看成是一个有序的子序列；
+// b. 从第2个元素开始，逐个将待排序的元素x与已排序序列[i-1] ~ [0]（从后往前）进行比较；
+// c. 若x小于比较元素，则比较元素向后移动一位；否则，将x插入序列当前位置。
+const insertSort = (arr: number[]) => {
+  for (let i = 1; i < arr.length; i++) {
+    const temp = arr[i];
+    let j: number;
+    for (j = i - 1; j >= 0 && arr[j] > temp; j--) {
+      arr[j + 1] = arr[j];
+    }
+    arr[j + 1] = temp;
+  }
+  return arr;
+}
+
+// 希尔排序
+const shellSort = (arr: number[]) => {
+
+}
