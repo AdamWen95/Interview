@@ -82,10 +82,12 @@ const mergeSort = (arr: number[]) => {
  * 2. 希尔排序
  */
 
-// 直接插入排序
-// a. 先将待排序序列的第1个元素看成是一个有序的子序列；
-// b. 从第2个元素开始，逐个将待排序的元素x与已排序序列[i-1] ~ [0]（从后往前）进行比较；
-// c. 若x小于比较元素，则比较元素向后移动一位；否则，将x插入序列当前位置。
+/**
+ * 直接插入排序
+ * a. 先将待排序序列的第1个元素看成是一个有序的子序列；
+ * b. 从第2个元素开始，逐个将待排序的元素x与已排序序列[i-1] ~ [0]（从后往前）进行比较；
+ * c. 若x小于比较元素，则比较元素向后移动一位；否则，将x插入序列当前位置。
+ */
 const insertSort = (arr: number[]) => {
   for (let i = 1; i < arr.length; i++) {
     const temp = arr[i];
@@ -98,7 +100,27 @@ const insertSort = (arr: number[]) => {
   return arr;
 }
 
-// 希尔排序
+/**
+ * 希尔排序
+ * a. 先将要数组按某个增量step（n/2）分组，所有距离为step的倍数的记录放在同一个组中；
+ *    在各组内进行直接插入排序；
+ * b. 然后再用一个较小的增量（step/2）对它进行分组，每组再进行直接插入排序；
+ *    直至增量减为1，进行直接插入排序后，整体排序完成。
+ */   
 const shellSort = (arr: number[]) => {
-
+  const len = arr.length;
+  let step = len; // 分割增量步长
+  while (step > 1) {
+    step = Math.floor(step / 2);
+    // 插入排序
+    for (let i = step; i < len; i++) {
+      let temp = arr[i];
+      let j: number;
+      for (j = i - step; j >= 0 && arr[j] > temp; j = j - step) {
+        arr[j + step] = arr[j];
+      }
+      arr[j + step] = temp;
+    }
+  }
+  return arr;
 }
