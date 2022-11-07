@@ -1,41 +1,3 @@
-// 堆排序
-const heapSort = (arr: number[]) => {
-  // 调整堆
-  const heapify = (arr: number[], index: number, len: number) => {
-    const left = 2 * index + 1; // 左子节点
-    const right = 2 * index + 2; // 右子节点
-    let largest = index;
-    // 找出index和其左右子节点中最大的
-    if (left < len && arr[left] > arr[largest]) {
-      largest = left;
-    }
-    if (right < len && arr[right] > arr[largest]) {
-      largest = right;
-    }
-    if (largest !== index) {
-      // 交换
-      [arr[index], arr[largest]]  = [arr[largest], arr[index]];
-      // 继续递归，调整index为root的堆
-      heapify(arr, largest, len);
-    }
-  }
-
-  let length = arr.length;
-
-  // 建堆
-  for (let i = Math.floor(length / 2); i >= 0; i--) {
-    heapify(arr, i, length);
-  }
-  for (let i = length - 1; i > 0; i--) {
-    // 输出堆顶元素
-    [arr[i], arr[0]] = [arr[0], arr[i]];
-    length--;
-    // 继续调整剩下的元素为大顶堆
-    heapify(arr, 0, length);
-  }
-  return arr
-}
-
 // 冒泡排序
 const bubbleSort = (arr: number[]) => {
   const len = arr.length;
@@ -123,4 +85,77 @@ const shellSort = (arr: number[]) => {
     }
   }
   return arr;
+}
+
+/**
+ * 选择排序
+ * 1. 直接选择排序
+ * 2. 堆排序
+ */
+
+/**
+ * 直接选择排序
+ * 每次遍历找到待排序元素中的最小值，将最小值和待排序的第一个元素交换，直至排序结束
+ */
+const directSelectSort = (arr: number[]) => {
+  if (!arr) return [];
+  for (let i = 0; i < arr.length; i++) {
+    let min = i;
+    // 找到最小值
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[min]) {
+        min = j;
+      }
+    }
+    // 交换
+    let temp = arr[i];
+    arr[i] = arr[min];
+    arr[min] = temp;
+  }
+  return arr;
+}
+
+/**
+ * 堆排序
+ * 大顶堆：每个节点的值都大于或等于其子节点的值，在堆排序算法中用于升序排列；
+ *  a. 首先将长度为n的序列构建称为大顶堆，此时根节点一定是当前序列的最大值；
+ *  b. 取出当前大顶堆的根节点，将其与序列末尾元素进行交换；
+ *  c. 对交换后的n-1个序列元素进行调整，使其满足大顶堆的性质；
+ *  d. 重复b、c两个步骤，直至堆中只有1个元素为止。
+ */
+ const heapSort = (arr: number[]) => {
+  // 调整堆
+  const heapify = (arr: number[], index: number, len: number) => {
+    const left = 2 * index + 1; // 左子节点
+    const right = 2 * index + 2; // 右子节点
+    let largest = index;
+    // 找出index和其左右子节点中最大的
+    if (left < len && arr[left] > arr[largest]) {
+      largest = left;
+    }
+    if (right < len && arr[right] > arr[largest]) {
+      largest = right;
+    }
+    if (largest !== index) {
+      // 交换
+      [arr[index], arr[largest]]  = [arr[largest], arr[index]];
+      // 继续递归，调整index为root的堆
+      heapify(arr, largest, len);
+    }
+  }
+
+  let length = arr.length;
+
+  // 建堆
+  for (let i = Math.floor(length / 2); i >= 0; i--) {
+    heapify(arr, i, length);
+  }
+  for (let i = length - 1; i > 0; i--) {
+    // 输出堆顶元素
+    [arr[i], arr[0]] = [arr[0], arr[i]];
+    length--;
+    // 继续调整剩下的元素为大顶堆
+    heapify(arr, 0, length);
+  }
+  return arr
 }
