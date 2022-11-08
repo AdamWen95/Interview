@@ -1,3 +1,8 @@
+/**
+ * 交换排序
+ * 1. 冒泡排序
+ * 2. 快速排序
+ */
 // 冒泡排序
 const bubbleSort = (arr: number[]) => {
   const len = arr.length;
@@ -11,6 +16,27 @@ const bubbleSort = (arr: number[]) => {
     }
   }
   return arr;
+}
+
+// 快速排序
+// 1. 非原地
+const quikSort = (arr: number[]) => {
+  if (arr.length < 2) return arr;
+  const left: number[] = [], right: number[] = [];
+  const target = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] < target) {
+      left.push(arr[i]);
+    } else {
+      right.push(arr[i]);
+    }
+  }
+  return quikSort(left).concat([target], quikSort(right));
+}
+
+// 2.原地
+const quikSort2 = (arr: number[]) => {
+  
 }
 
 // 归并排序
