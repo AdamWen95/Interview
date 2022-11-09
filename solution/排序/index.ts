@@ -36,7 +36,31 @@ const quikSort = (arr: number[]) => {
 
 // 2.原地
 const quikSort2 = (arr: number[]) => {
-  
+  const helper = (array: number[], left: number, right: number) => {
+    let pivot = array[left];
+    while (left < right) {
+      while (left < right && array[right] >= pivot) {
+        right--;
+      }
+      [array[left], array[right]] = [array[right], array[left]];
+      while (left < right && array[left] <= pivot) {
+        left++;
+      }
+      [array[left], array[right]] = [array[right], array[left]];
+    }
+    return left;
+  }
+
+  const quikSort = (arr: number[], left: number, right: number) => {
+    if (left < right) {
+      let pivot = helper(arr, left, right);
+      quikSort(arr, left, pivot - 1);
+      quikSort(arr, pivot + 1, right);
+    }
+    return arr;
+  }
+
+  return quikSort(arr, 0, arr.length - 1);
 }
 
 // 归并排序
